@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button"
-import Canvas from "@/components/Editor/Canvas.tsx";
+import Canvas from "@/components/editor/Canvas.tsx";
 
 function App() {
     return (

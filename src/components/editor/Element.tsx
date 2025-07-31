@@ -5,6 +5,7 @@ import {Image, Transformer} from "react-konva";
 export interface ElementData {
     id: string;
     type: string;
+    name: string;
     x: number;
     y: number;
     width: number;
@@ -27,10 +28,10 @@ function Element({ data, isSelected, onSelect, onModify } : ElementProps) {
 
     useEffect(() => {
         const img = new window.Image();
-        img.src = `../../../assets/elements/${data.type}.png`;
+        img.src = `/assets/elements/${data.type}.png`;
         img.onload = () => setImage(img);
 
-        console.log(img);
+        console.log(`Loaded element with image: '${img.src}'`);
 
         onModify({
             width: img.width,

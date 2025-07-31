@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Stage, Layer } from 'react-konva';
-import EditableRect from './EditableRect.tsx';
 import Controls from "./Controls.tsx";
 import type { ElementData } from "./Element.tsx";
 import Element from "./Element.tsx";
+import Hierarchy from "@/components/editor/Hierarchy.tsx";
 
 interface ShapeData {
     id: string;
@@ -18,11 +18,13 @@ interface ShapeData {
 function Canvas() {
     const [shapes, setShapes] = useState<ElementData[]>([ ]);
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [idCounter, setIdCounter] = useState<number>(0);
 
-    function createObject() {
+    function createObject(type: string) {
         const newShape: ElementData = {
-            id: `element-${shapes.length}`,
-            type: "duck",
+            id: `element-${idCounter}`,
+            type: type,
+            name: `New Element ${shapes.length + 1}`,
             x: 50,
             y: 50,
             width: 100,
@@ -31,12 +33,14 @@ function Canvas() {
         };
 
         setShapes([...shapes, newShape]);
+        setIdCounter(idCounter + 1);
     }
 
     function deleteObject(id: string | null) {
         if(!id) return;
 
         setShapes(shapes.filter(shape => shape.id != id));
+        setSelectedId(null);
     }
 
     function updateShape(id: string, newProps: Partial<ShapeData>) {
@@ -44,11 +48,11 @@ function Canvas() {
     }
 
     return (
-        <>
-            <Controls createObject={createObject} deleteSelectedObject={() => deleteObject(selectedId)}/>
-
-            <div className="bg-slate-900">
-                <Stage width={1280} height={720}  onMouseDown={e => {
+        <div className="flex flex-row gap-x-10">
+            <Hierarchy elements={shapes} selectedId={selectedId} onSelect={setSelectedId}/>
+            <div>
+                <Controls createObject={createObject} deleteSelectedObject={() => deleteObject(selectedId)}/>
+                <Stage width={1280} height={720} className="bg-slate-900" onMouseDown={e => {
                     // Deselect on an empty click
                     if (e.target === e.target.getStage()) {
                         setSelectedId(null);
@@ -67,7 +71,7 @@ function Canvas() {
                     </Layer>
                 </Stage>
             </div>
-        </>
+        </div>
     );
 }
 
