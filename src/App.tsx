@@ -4,10 +4,9 @@ import Canvas from "@/components/Editor/Canvas.tsx";
 function App() {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center">
-            <Button>Click me</Button>
             <Canvas />
-    </div>
-  )
+    	</div>
+  	)
 }
 
 export default App

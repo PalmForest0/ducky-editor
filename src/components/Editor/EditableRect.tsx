@@ -43,6 +43,7 @@ function EditableRect({shapeProps, isSelected, onSelect, onChange} : EditableRec
                         x: e.target.x(),
                         y: e.target.y(),
                     });
+                    onSelect();
                 }}
                 onTransformEnd={() => {
                     const node = shapeRef.current;
