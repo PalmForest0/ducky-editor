@@ -118,3 +118,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Disable Ant Design Menu item selection animation for element hierarchy*/
+.ant-menu-item-selected {
+  transition: none !important;
+}
+.ant-motion-collapse {
+  transition: none !important;
+}

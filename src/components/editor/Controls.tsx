@@ -31,6 +31,7 @@ function Controls({ createObject, deleteSelectedObject } : ControlsProps) {
 			footer={null}
 			onOk={() => setCreateMenuOpen(false)} 
 			onCancel={() => setCreateMenuOpen(false)}
+			modalRender={(node) => node}
 			>
 				<List itemLayout="horizontal" size="small" dataSource={elements} renderItem={elem => (
 					<div onClick={() => createNew(elem.type)} className="select-none cursor-pointer gap-0">

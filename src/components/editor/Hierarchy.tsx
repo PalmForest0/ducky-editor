@@ -13,9 +13,9 @@ function Hierarchy({ elements, selectedId, onSelect }: HierarchyProps) {
 			<Menu
 				mode="inline"
 				className="h-full"
-				items={elements.map((element, index) => ({
-					key: element.id || index,
-					label: element.name || element.id || element.type || index
+				items={elements.map((elem) => ({
+					key: elem.id,
+					label: elem.name || elem.id
 				}))}
 				selectedKeys={elements.filter(element => element.id === selectedId).map(element => element.id)}
 				onSelect={({ key }) => onSelect(key)}
