@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Swampy Duck",
+        "type": "star"
+    },
+    {
+        "name": "Cranky Duck",
+        "type": "star_poison"
+    },
+    {
+        "name": "Allie Duck",
+        "type": "star_steam"
+    }
+]
