@@ -9,6 +9,7 @@ import Hierarchy from "./components/editor/Hierarchy";
 import Controls from "./components/editor/Controls";
 
 import elementDatas from "./data/elements.json";
+import Inspector from "./components/editor/Inspector";
 
 export interface ShapeData {
 	id: string;
@@ -59,28 +60,28 @@ function App() {
 
 	return (
 		<Layout>
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
-        <Controls createObject={createElement} deleteSelectedObject={() => deleteElement(selectedId)}/>
-      </Header>
-      <Layout>
-        <Sider width={300}>
-          <Hierarchy elements={elements} selectedId={selectedId} onSelect={setSelectedId}/>
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-					<Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280
-            }}
-          >
-            <Canvas elements={elements} setElements={setElements} selectedId={selectedId} setSelectedId={setSelectedId} updateElement={updateElement}/>
-          </Content>
-        </Layout>
-      </Layout>
+	  	<Header style={{ display: 'flex', alignItems: 'center' }}>
+				<Controls createObject={createElement} deleteSelectedObject={() => deleteElement(selectedId)}/>
+	  	</Header>
 
-			<a href="https://github.com/PalmForest0/ducky-editor" target="_blank" rel="noopener noreferrer"><img src="/github_tv.png" className="fixed right-12 top-10 w-29"/></a>
-    </Layout>
+	  	<Layout>
+				<Sider width={300} theme="light">
+		  		<Hierarchy elements={elements} selectedId={selectedId} onSelect={setSelectedId}/>
+				</Sider>
+
+				<Layout style={{ padding: '0 24px 24px' }}>
+					<Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
+						<Canvas elements={elements} setElements={setElements} selectedId={selectedId} setSelectedId={setSelectedId} updateElement={updateElement}/>
+		  		</Content>
+				</Layout>
+
+				<Sider width={400} theme="light">
+					<Inspector elements={elements} setElements={setElements} selectedId={selectedId}/>
+				</Sider>
+	  	</Layout>
+
+			<a href="https://github.com/PalmForest0/ducky-editor" target="_blank" rel="noopener noreferrer"><img src="/github_tv.png" className="fixed right-12 bottom-10 w-29"/></a>
+		</Layout>
 	);
 }
 

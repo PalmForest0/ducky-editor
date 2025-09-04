@@ -16,7 +16,7 @@ function Canvas({ elements, setElements, updateElement, selectedId, setSelectedI
 	return (
 		<div className="flex flex-row gap-x-10">
 			<div>
-				<Stage width={1280} height={720} className="bg-slate-900" onMouseDown={e => {
+				<Stage width={960} height={720} className="bg-slate-900" onMouseDown={e => {
 					// Deselect on an empty click
 					if (e.target === e.target.getStage()) {
 						setSelectedId(null);
