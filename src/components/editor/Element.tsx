@@ -73,21 +73,15 @@ function Element({ data, isSelected, onSelect, onModify } : ElementProps) {
 					const node = shapeRef.current;
 					if (!node) return;
 
-					const scaleX = node.scaleX();
-					const scaleY = node.scaleY();
-
-					node.scaleX(1);
-					node.scaleY(1);
-
 					onModify({
 						x: node.x(),
 						y: node.y(),
 						rotation: node.rotation(),
-						width: Math.max(5, node.width() * scaleX),
-						height: Math.max(5, node.height() * scaleY),
+						width: node.width(),
+						height: node.height(),
 					});
 				}}/>
-			{isSelected && <Transformer ref={transformerRef} />}
+			{isSelected && <Transformer ref={transformerRef} resizeEnabled={false} />}
 		</>
 	);
 }

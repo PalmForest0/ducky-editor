@@ -29,7 +29,7 @@ function Inspector({ elements, setElements, selectedId }: InspectorProps) {
 		{element && (
 			<div className="p-8 flex-col">
 				<div className="mb-5 gap-8">
-					<div className="justify-between">
+					<div className="flex justify-between">
 						<span className="text-muted-foreground">{element?.id}</span>
 						<span className="text-muted-foreground">{element?.type}</span>
 					</div>
@@ -44,15 +44,17 @@ function Inspector({ elements, setElements, selectedId }: InspectorProps) {
 								updateElement(selectedId, { ...element, name: e.target.value })
 							}}/>
 
-						<Space.Compact size="large">
+						<Space.Compact>
       				<InputNumber addonBefore="X" value={element.x} onChange={(e) => updateElement(selectedId, { ...element, x: e ?? 0 })}/>
       				<InputNumber addonBefore="Y" value={element.y} onChange={(e) => updateElement(selectedId, { ...element, y: e ?? 0 })}/>
     				</Space.Compact>
 
-						<Space.Compact size="large">
+						{/* <Space.Compact size="large">
       				<InputNumber addonBefore="Width" value={element.width} onChange={(e) => updateElement(selectedId, { ...element, width: e ?? 0 })}/>
       				<InputNumber addonBefore="Height" value={element.height} onChange={(e) => updateElement(selectedId, { ...element, height: e ?? 0 })}/>
-    				</Space.Compact>
+    				</Space.Compact> */}
+
+						<InputNumber addonBefore="Rotation" value={element.rotation} onChange={(e) => updateElement(selectedId, { ...element, rotation: e ?? 0 })}/>
 					</Flex>
 				</div>
 				
