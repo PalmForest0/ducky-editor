@@ -1,5 +1,5 @@
 import type { ElementData } from "@/components/editor/Element.tsx";
-import { Input } from "antd";
+import { Flex, Input, InputNumber, Space } from "antd";
 import { useEffect, useState } from "react";
 
 interface InspectorProps {
@@ -28,13 +28,37 @@ function Inspector({ elements, setElements, selectedId }: InspectorProps) {
 	return <>
 		{element && (
 			<div className="p-8 flex-col">
-				<div className="mb-5">
-					<Input size="large" placeholder="Element Name" onChange={() => updateElement(selectedId, { ...element, name: element?.name })}/>
-					<h1 className="text-2xl font-semibold mb-1">{element?.name}</h1>
-					<span className="text-muted-foreground">{element?.type}</span>
+				<div className="mb-5 gap-8">
+					<div className="justify-between">
+						<span className="text-muted-foreground">{element?.id}</span>
+						<span className="text-muted-foreground">{element?.type}</span>
+					</div>
+					<hr className="mt-2 mb-2"/>
+
+					<Flex vertical={true} gap={5}>
+						<Input 
+							size="large" 
+							placeholder="Element Name"
+							value={element?.name}
+							onChange={(e) => {
+								updateElement(selectedId, { ...element, name: e.target.value })
+							}}/>
+
+						<Space.Compact size="large">
+      				<InputNumber addonBefore="X" value={element.x} onChange={(e) => updateElement(selectedId, { ...element, x: e ?? 0 })}/>
+      				<InputNumber addonBefore="Y" value={element.y} onChange={(e) => updateElement(selectedId, { ...element, y: e ?? 0 })}/>
+    				</Space.Compact>
+
+						<Space.Compact size="large">
+      				<InputNumber addonBefore="Width" value={element.width} onChange={(e) => updateElement(selectedId, { ...element, width: e ?? 0 })}/>
+      				<InputNumber addonBefore="Height" value={element.height} onChange={(e) => updateElement(selectedId, { ...element, height: e ?? 0 })}/>
+    				</Space.Compact>
+					</Flex>
 				</div>
 				
-				<span className="text-muted-foreground">{element?.id}</span>
+				<div>
+					<h1 className="text-lg font-semibold mb-5">Properties</h1>
+				</div>
 			</div>
 		)}
 	</>
