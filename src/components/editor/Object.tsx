@@ -1,8 +1,8 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
+import { Image, Transformer } from "react-konva";
 import Konva from "konva";
-import {Image, Transformer} from "react-konva";
 
-export interface ElementData {
+export interface ObjectData {
 	id: string;
 	type: string;
 	name: string;
@@ -11,16 +11,22 @@ export interface ElementData {
 	width: number;
 	height: number;
 	rotation: number;
+	properties: PropertyData[];
 }
 
-interface ElementProps {
-	data: ElementData,
+export interface PropertyData {
+	name: string;
+	value: string;
+}
+
+interface ObjectProps {
+	data: ObjectData,
 	isSelected: boolean,
 	onSelect: () => void,
-	onModify: (newData: Partial<ElementData>) => void
+	onModify: (newData: Partial<ObjectData>) => void
 }
 
-function Element({ data, isSelected, onSelect, onModify } : ElementProps) {
+function Element({ data, isSelected, onSelect, onModify } : ObjectProps) {
 	const shapeRef = useRef<Konva.Image | null>(null);
 	const transformerRef = useRef<Konva.Transformer | null>(null);
 	

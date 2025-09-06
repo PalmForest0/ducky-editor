@@ -1,8 +1,8 @@
 import {Button, List, Modal} from "antd";
 import {useState} from "react";
 
-import elements from "../../data/elements.json";
-import { getImage } from "./Element";
+import objects from "../../data/objects.json";
+import { getImage } from "./Object";
 
 interface ControlsProps {
 	createObject: (type: string) => void,
@@ -20,28 +20,35 @@ function Controls({ createObject, deleteSelectedObject } : ControlsProps) {
 	return (
 		<>
 			<div className="flex flex-row gap-x-3 py-4">
-				<Button onClick={() => setCreateMenuOpen(true)}>Add Element</Button>
-				<Button onClick={deleteSelectedObject}>Delete Element</Button>
+				<Button onClick={() => setCreateMenuOpen(true)}>Create Object</Button>
+				<Button onClick={deleteSelectedObject}>Delete Object</Button>
 			</div>
 
 			<Modal 
-			title="Add Element" 
-			closable={{ 'aria-label': 'Close' }} 
-			open={isCreateMenuOpen} 
-			footer={null}
-			onOk={() => setCreateMenuOpen(false)} 
-			onCancel={() => setCreateMenuOpen(false)}
-			modalRender={(node) => node}
+				title="Add Element" 
+				closable={{ 'aria-label': 'Close' }} 
+				open={isCreateMenuOpen} 
+				footer={null}
+				styles={{
+    			body: {
+      			maxHeight: "70vh",
+      			overflowY: "auto",
+      			paddingRight: "14px"
+    			}
+  			}}
+				onOk={() => setCreateMenuOpen(false)} 
+				onCancel={() => setCreateMenuOpen(false)}
+				modalRender={(node) => node}
 			>
-				<List itemLayout="horizontal" size="small" dataSource={elements} renderItem={elem => (
-					<div onClick={() => createNew(elem.type)} className="select-none cursor-pointer gap-0">
+				<List itemLayout="horizontal" size="small" dataSource={objects} renderItem={obj => (
+					<div onClick={() => createNew(obj.name)} className="select-none cursor-pointer gap-0">
 						<List.Item>
 							<List.Item.Meta
-							avatar={<img src={getImage(elem.type)} className="h-5 mt-1" />}
-							title={elem.name}
-							key={`create_${elem.type}`}
+							avatar={<img src={getImage(obj.name)} className="h-5 mt-1" />}
+							title={obj.name}
+							key={`create_${obj.name}`}
 							/>
-							<h2 className="text-muted-foreground">{elem.type}</h2>
+							<h2 className="text-muted-foreground">{obj.name}</h2>
 						</List.Item>
 					</div>
 				)}/>

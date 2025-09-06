@@ -1,18 +1,16 @@
 import { Stage, Layer } from 'react-konva';
 
-import Element from "./Element.tsx";
-import type { ElementData } from "./Element.tsx";
-import type { ShapeData } from '@/App.tsx';
+import Element from "./Object.tsx";
+import type { ObjectData } from "./Object.tsx";
 
 interface CanvasProps {
-	elements: ElementData[];
-	setElements: (elements: ElementData[]) => void;
-	updateElement: (id: string, newProps: Partial<ShapeData>) => void;
+	objects: ObjectData[];
+	updateObject: (id: string, newProps: Partial<ObjectData>) => void;
 	selectedId: string | null;
 	setSelectedId: (id: string | null) => void;
 }
 
-function Canvas({ elements, setElements, updateElement, selectedId, setSelectedId }: CanvasProps) {
+function Canvas({ objects, updateObject, selectedId, setSelectedId }: CanvasProps) {
 	return (
 		<div className="flex flex-row gap-x-10">
 			<div>
@@ -23,13 +21,13 @@ function Canvas({ elements, setElements, updateElement, selectedId, setSelectedI
 					}
 				}}>
 					<Layer>
-						{elements.map(elem => (
+						{objects.map(obj => (
 							<Element
-								key={elem.id}
-								data={elem}
-								isSelected={elem.id === selectedId}
-								onSelect={() => setSelectedId(elem.id)}
-								onModify={(newProps: Partial<ShapeData>) => updateElement(elem.id, newProps)}
+								key={obj.id}
+								data={obj}
+								isSelected={obj.id === selectedId}
+								onSelect={() => setSelectedId(obj.id)}
+								onModify={(newProps: Partial<ObjectData>) => updateObject(obj.id, newProps)}
 							/>
 						))}
 					</Layer>
