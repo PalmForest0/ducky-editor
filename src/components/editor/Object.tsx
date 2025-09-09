@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Image, Transformer } from "react-konva";
 import Konva from "konva";
+import type { Rectangle } from "./Canvas";
 
 export interface ObjectData {
 	id: string;
@@ -22,11 +23,12 @@ export interface PropertyData {
 interface ObjectProps {
 	data: ObjectData,
 	isSelected: boolean,
+  displayBounds: Rectangle,
 	onSelect: () => void,
 	onModify: (newData: Partial<ObjectData>) => void
 }
 
-function Element({ data, isSelected, onSelect, onModify } : ObjectProps) {
+function Object({ data, isSelected, displayBounds, onSelect, onModify } : ObjectProps) {
 	const shapeRef = useRef<Konva.Image | null>(null);
 	const transformerRef = useRef<Konva.Transformer | null>(null);
 	
@@ -71,6 +73,12 @@ function Element({ data, isSelected, onSelect, onModify } : ObjectProps) {
 					e.cancelBubble = true;
 					onSelect();
 				}}
+        onDragMove={(e) => {
+          let newX = e.target.x();
+          let newY = e.target.y();
+		    	e.target.x(Math.max(displayBounds.x, Math.min(newX, displayBounds.width - e.target.width())));
+          e.target.y(Math.max(displayBounds.y, Math.min(newY, displayBounds.height - e.target.height())));
+        }}
 				onDragEnd={(e) => {
 					onModify({ x: e.target.x(), y: e.target.y() });
 					onSelect();
@@ -92,7 +100,7 @@ function Element({ data, isSelected, onSelect, onModify } : ObjectProps) {
 	);
 }
 
-export default Element;
+export default Object;
 
 export function getImage(type: string) {
 	return `/elements/${type}.png`;

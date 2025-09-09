@@ -70,8 +70,9 @@ function App() {
 					<Inspector objects={objects} updateObject={updateObject} selectedId={selectedId}/>
 				</Sider>
 	  	</Layout>
-
-			<a href="https://github.com/PalmForest0/ducky-editor" target="_blank" rel="noopener noreferrer"><img src="/github_tv.png" className="fixed right-12 bottom-10 w-29"/></a>
+			{!selectedId && (
+				<a href="https://github.com/PalmForest0/ducky-editor" target="_blank" rel="noopener noreferrer"><img src="/github_tv.png" className="fixed right-12 bottom-10 w-29"/></a>
+			)}
 		</Layout>
 	);
 }

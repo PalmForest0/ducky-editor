@@ -48,7 +48,6 @@ function Controls({ createObject, deleteSelectedObject } : ControlsProps) {
 							title={obj.name}
 							key={`create_${obj.name}`}
 							/>
-							<h2 className="text-muted-foreground">{obj.name}</h2>
 						</List.Item>
 					</div>
 				)}/>
